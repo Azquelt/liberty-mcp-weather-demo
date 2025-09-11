@@ -1,0 +1,22 @@
+<server description="Sample Liberty server">
+
+  <featureManager>
+    <platform>jakartaee-10.0</platform>
+    <platform>microProfile-7.1</platform>
+    <feature>servlet</feature>
+    <feature>jsonb</feature>
+    <feature>mpRestClient</feature>
+    <feature>mcpServer-1.0</feature>
+  </featureManager>
+
+  <variable name="default.http.port" defaultValue="9080" />
+  <variable name="default.https.port" defaultValue="9443" />
+
+  <httpEndpoint httpPort="${default.http.port}"
+    httpsPort="${default.https.port}" id="defaultHttpEndpoint" host="*" />
+    
+  <mpOpenAPI />
+  
+  <logging traceSpecification="MCP=all"/>
+  
+</server>

@@ -1,0 +1,33 @@
+plugins {
+    id 'war'
+    id "io.openliberty.tools.gradle.Liberty" version "3.9.4"
+    id 'wrapper'
+}
+
+repositories {
+    mavenCentral()
+}
+
+String wlpHome = project.findProperty('mcp.liberty.installDir');
+
+dependencies {
+    compileOnly 'jakarta.platform:jakarta.jakartaee-web-api:10.0.0'
+    compileOnly 'org.eclipse.microprofile:microprofile:7.1'
+    compileOnly fileTree(new File(wlpHome, "dev/api/ibm")) { include 'io.openliberty.mcp_*.jar' }
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+installFeature.enabled = false
+
+liberty {
+    installDir = wlpHome
+    server {
+        name = "mcp-test-server"
+        configDirectory = file("src/main/liberty/config")
+    }
+}
